@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Air Dancer</title>
+  <style>
+    body {
+      text-align: center;
+      
+      background-size: cover;
+      background-position: center;
+      color: black;
+      font-family: helvetica;
+    }
+    div {
+  height: 200px;
+  background-size: cover;
+  position: relative;
+  margin: 0px auto;
+  border-radius: 12px;
+    p {
+      font-size: 22px;
+ 
+    }
+  </style>
+</head>
+<body>
+  <article>
+    <img id="dancer" src="img/Sequence 0100.png">
+    <h1>Air Dancer</h1>
+    <button onclick="toggler()">Toggle</button>
+  </article>
+</body>
+<script
+  src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
+  crossorigin="anonymous"></script>
+<script type="text/javascript">
+  $(function() {
+    console.log('hello');
+    window.GIF = [
+      [125, 130],
+      [131, 154],
+    ];
+
+    window.TOGGLE = false;
+
+    window.toggler = function () {
+      TOGGLE = !TOGGLE;
+    }
+
+    var from = GIF[0][0], to = GIF[0][1];
+    var seq = 0;
+    var step = 1;
+    var i = from;
+
+    function changeImg(_from, _to) {
+      // console.log('changeImg', _from, _to, i);
+      $('#dancer').attr('src', 'img/Sequence 0' + i + '.png');
+      if (i >= GIF[seq][1]) {
+        _from = GIF[seq][1];
+        _to = GIF[seq][0];
+        step = -1;
+      } else if(i <= GIF[seq][0]) {
+        _from = GIF[seq][0];
+        _to = GIF[seq][1];
+        i = _from;
+        step = 1;
+      }
+      i = i + step;
+    }
+    
+    var myInterval = setInterval(function() {
+      if (TOGGLE) {
+        from = GIF[1][0];
+        to = GIF[1][1];
+        seq = 1;
+      } else {
+        from = GIF[0][0];
+        to = GIF[0][1];
+        seq = 0;
+      }
+
+      changeImg(from, to)
+   }, 100);
+
+  });
+</script>
+<script type="text/javascript" src="app.js"></script>
+</html>
